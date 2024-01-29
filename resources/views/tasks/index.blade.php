@@ -1,6 +1,19 @@
 @extends('layout.app')
 
 @section('content')
+@if (session()->has('success'))
+<div class="alert alert-success" style="display: flex; align-items: center;">
+    {{ session()->get('success') }}
+    <button type="button" class="close" aria-hidden="true" style="margin-left: auto; margin-right: 0;"
+        onclick="this.parentElement.style.display='none'">X</button>
+</div>
+@elseif (session()->has('error'))
+<div class="alert alert-danger" style="display: flex; align-items: center;">
+    {{ session()->get('error') }}
+    <button type="button" class="close" aria-hidden="true" style="margin-left: auto; margin-right: 0;"
+        onclick="this.parentElement.style.display='none'">x</button>
+</div>
+@endif
 <div class="container-fluid">
     <div class="card">
         <div class="card-header">
@@ -39,13 +52,13 @@
                             </td>
                             <td>{{ $task->title }}</td>
                             <td>{{ $task->description }}</td>
-                         <td>
-                            <button class="badge badge-{{ $task->priority == 1 ? 'danger' : 'warning' }}" data-id="{{ $task->id }}"
-                                onclick="updatePriority(event)">
-                                {{ $task->priority == 1 ? 'High' : 'Low' }}
-                                <i class="bi bi-arrow-{{ $task->priority == 1 ? 'down' : 'up' }}-square ml-1" style="color: black;"></i>
-                            </button>
-                        </td>
+                            <td>
+                                <button class="badge badge-{{ $task->priority == 1 ? 'danger' : 'warning' }}"
+                                    data-id="{{ $task->id }}" onclick="updatePriority(event)">
+                                    {{ $task->priority == 1 ? 'High' : 'Low' }}
+
+                                </button>
+                            </td>
                             <td>{{ $task->due_date }}</td>
                             <td>
                                 <a href="task/{{ $task->id }}"
@@ -64,22 +77,11 @@
                     </tbody>
                 </table>
             </div>
+
         </div>
+
     </div>
-    {{-- Success and Error Session --}}
-    @if (session()->has('success'))
-    <div class="alert alert-success" style="display: flex; align-items: center;">
-        {{ session()->get('success') }}
-        <button type="button" class="close" aria-hidden="true" style="margin-left: auto; margin-right: 0;"
-            onclick="this.parentElement.style.display='none'">X</button>
-    </div>
-    @elseif (session()->has('error'))
-    <div class="alert alert-danger" style="display: flex; align-items: center;">
-        {{ session()->get('error') }}
-        <button type="button" class="close" aria-hidden="true" style="margin-left: auto; margin-right: 0;"
-            onclick="this.parentElement.style.display='none'">x</button>
-    </div>
-    @endif
+
 </div>
 
 @include('tasks.create')
