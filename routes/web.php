@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
 Route::post('/tasks/store', [TaskController::class, 'store'])->name('tasks.store');
+Route::get('/task/{id}', [TaskController::class, 'updateStatus']);
+Route::post('/task/update-priority/{taskId}', [TaskController::class, 'updatePriority']);

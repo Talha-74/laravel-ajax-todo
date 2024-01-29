@@ -9,7 +9,8 @@
                     <h2>Manage <b>Tasks</b></h2>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <button class="btn btn-success btn-regular align-items-center" type="button" data-toggle="modal" data-target="#addTask">
+                    <button class="btn btn-success btn-regular align-items-center" type="button" data-toggle="modal"
+                        data-target="#addTask">
                         <i class="bi bi-patch-plus" style="margin-right: 7px;"></i> Add task
                     </button>
                 </div>
@@ -26,7 +27,7 @@
                             <th scope="col">Priority</th>
                             <th scope="col">Due Date</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Actions</th>
+                            {{-- <th scope="col">Actions</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -38,22 +39,26 @@
                             </td>
                             <td>{{ $task->title }}</td>
                             <td>{{ $task->description }}</td>
-                            <td>
-                                @if ( $task->priority == 1)
-                                <span class="badge badge-danger">High</span>
-                                @else
-                                <span class="badge badge-warning">Low</span>
-                                @endif
-                            </td>
+                         <td>
+                            <button class="badge badge-{{ $task->priority == 1 ? 'danger' : 'warning' }}" data-id="{{ $task->id }}"
+                                onclick="updatePriority(event)">
+                                {{ $task->priority == 1 ? 'High' : 'Low' }}
+                                <i class="bi bi-arrow-{{ $task->priority == 1 ? 'down' : 'up' }}-square ml-1" style="color: black;"></i>
+                            </button>
+                        </td>
                             <td>{{ $task->due_date }}</td>
                             <td>
-                                @if($task->completed === true)
-                                <span class="badge badge-success">Completed</span>
-                                @else
-                                <span class="badge badge-danger">Incomplete</span>
-                                @endif
+                                <a href="task/{{ $task->id }}"
+                                    class="badge badge-{{ $task->completed ? 'success' : 'danger' }}">
+                                    {{ $task->completed ? 'Completed' : 'Incomplete' }}
+                                    @if($task->completed)
+                                    <i class="bi bi-check-circle-fill ml-1" style="color: black"></i>
+                                    @else
+                                    <i class="bi bi-exclamation-triangle-fill ml-1" style="color: black"></i>
+                                    @endif
+                                </a>
                             </td>
-                            <td>hi</td>
+                            {{-- <td>hi</td> --}}
                         </tr>
                         @endforeach
                     </tbody>
@@ -78,4 +83,6 @@
 </div>
 
 @include('tasks.create')
+
+
 @endsection
