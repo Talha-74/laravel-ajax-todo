@@ -9,7 +9,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $data['tasks'] = Task::Paginate('20');
+        $data['tasks'] = Task::Paginate('5');
         return view('tasks.index')->with($data);
     }
 
