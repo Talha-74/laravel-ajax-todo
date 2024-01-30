@@ -15,19 +15,27 @@
                     <div class="form-group mb-3" style="position: relative;">
                         <label class="control-label mb-2" for="title">Title <code>*</code></label>
                         <input type="text" class="form-control rounded-2" name="title" id="title"
-                            placeholder="task title" required>
-                        {{-- <i class="bi bi-list-check"
-                            style="position: absolute; top:37px; right:10px; font-size:24px;"></i> --}}
+                            class="@error('title') is-invalid @enderror" placeholder="task title">
+                        @error('title')
+                        <div class="text-danger">{{$message }}</div>
+                        @enderror
+
                     </div>
                     <div class="form-group mt-2">
                         <label class="control-label mb-2" for="description">Description <code>*</code></label>
                         <textarea type="text" class="form-control rounded-2" name="description" id="description"
-                            placeholder="Task Description" required></textarea>
+                            placeholder="Task Description"></textarea>
+                        @error('description')
+                        <div class="text-danger">{{$message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group mt-2">
                         <label class="control-label mb-2" for="due_date">Due Date <code>*</code></label>
                         <input type="date" class="form-control rounded-2" name="due_date" id="due_date"
-                            placeholder="Due Date" required>
+                            placeholder="Due Date">
+                        @error('due_date')
+                        <div class="text-danger">{{$message }}</div>
+                        @enderror
                     </div>
             </div>
             <div class="modal-footer">
