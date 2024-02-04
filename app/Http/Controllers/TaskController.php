@@ -63,8 +63,8 @@ class TaskController extends Controller
     }
 
    public function sortedTasks() {
-    $data['tasks'] = Task::orderBy('priority', 'desc')->paginate(10);
-    return view('tasks.index', $data);
+    $data['tasks'] = Task::orderBy('priority', 'desc')->paginate('7');
+    return view('tasks.index')->with($data);
 }
 
 }
